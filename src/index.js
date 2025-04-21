@@ -1,12 +1,9 @@
 
 const express = require("express");
-const { createCanvas, registerFont } = require("canvas");
-const path = require("path");
+const { createCanvas } = require("canvas");
 
 const app = express();
 const port = process.env.PORT || 3000;
-
-registerFont(path.join(__dirname, "Poppins-Bold.ttf"), { family: "Poppins" });
 
 app.get("/contador", async (req, res) => {
   const width = 400;
@@ -14,6 +11,7 @@ app.get("/contador", async (req, res) => {
   const canvas = createCanvas(width, height);
   const ctx = canvas.getContext("2d");
 
+  // Fondo blanco
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, width, height);
 
@@ -27,7 +25,7 @@ app.get("/contador", async (req, res) => {
   const labels = ["DÍAS", "HORAS", "MIN"];
   const values = [days, hours, minutes];
 
-  ctx.font = "32pt Poppins";
+  ctx.font = "bold 32px Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
@@ -45,11 +43,11 @@ app.get("/contador", async (req, res) => {
     ctx.fillStyle = "#003B42";
     ctx.fillText(values[i], x + boxWidth / 2, y + boxHeight / 2);
 
-    ctx.font = "12pt Poppins";
+    ctx.font = "bold 12px Arial";
     ctx.fillStyle = "#777";
     ctx.fillText(labels[i], x + boxWidth / 2, y + boxHeight + 20);
 
-    ctx.font = "32pt Poppins";
+    ctx.font = "bold 32px Arial";
   }
 
   res.setHeader("Content-Type", "image/png");
@@ -57,7 +55,7 @@ app.get("/contador", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Contador estilo promofeatures con fuente embebida funcionando.");
+  res.send("Contador estilo promofeatures funcionando.");
 });
 
 app.listen(port, () => {
